@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,22 +17,24 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    @Inject Retrofit retrofit;
     ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ((MyApplication) getApplication()).getNetComponent().inject(this);
         listView = findViewById(R.id.listViewHeroes);
         getHeroes();
     }
 
     private void getHeroes() {
 
-        Retrofit retrofit = new Retrofit.Builder()
+       /* Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(ApiRequest.BASE_URL)
                             .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+                            .build();*/
 
         ApiRequest api = retrofit.create(ApiRequest.class);
 
